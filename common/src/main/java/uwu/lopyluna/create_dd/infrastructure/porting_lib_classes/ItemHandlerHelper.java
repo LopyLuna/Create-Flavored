@@ -1,0 +1,22 @@
+package uwu.lopyluna.create_dd.infrastructure.porting_lib_classes;
+
+import net.minecraft.world.item.ItemStack;
+
+public class ItemHandlerHelper {
+    public static boolean canItemStacksStack(ItemStack first, ItemStack second) {
+        if (first.isEmpty() || !first.sameItem(second) || first.hasTag() != second.hasTag()) return false;
+
+        return !first.hasTag() || first.getTag().equals(second.getTag());
+    }
+
+    public static ItemStack copyStackWithSize(ItemStack stack, int size) {
+        if (size == 0) return ItemStack.EMPTY;
+        ItemStack copy = stack.copy();
+        copy.setCount(size);
+        return copy;
+    }
+
+    public static ItemStack growCopy(ItemStack stack, int amount) {
+        return copyStackWithSize(stack, stack.getCount() + amount);
+    }
+}

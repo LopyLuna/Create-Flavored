@@ -1,0 +1,6 @@
+{
+    "files.autoSave": "off",
+    "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+    "java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current",
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
