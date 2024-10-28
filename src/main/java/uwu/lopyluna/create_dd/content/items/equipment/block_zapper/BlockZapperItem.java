@@ -55,8 +55,10 @@ import static com.simibubi.create.foundation.item.TooltipHelper.styleFromColor;
 import static com.simibubi.create.foundation.utility.BlockHelper.getRequiredItem;
 import static net.minecraft.client.gui.screens.Screen.hasControlDown;
 import static net.minecraft.client.gui.screens.Screen.hasShiftDown;
+import static uwu.lopyluna.create_dd.DesiresCreate.MOD_ID;
 
 public class BlockZapperItem extends ZapperItem implements Vanishable {
+    static String zapper = MOD_ID + ".handheld_block_zapper";
 
     public BlockZapperItem(Properties properties) {
         super(properties.rarity(Rarity.UNCOMMON));
@@ -72,34 +74,34 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 tooltip.add(holdCtrl());
             }
             if (!hasControlDown() && !(stack.getTag().contains("BreakerModifier") && nbt.getBoolean("BreakerModifier")) && !hasShiftDown() && !DesiresConfigs.client().disableBlocksVoidZapperMessage.get()) {
-                tooltip.add(Component.translatable("create_dd.block_zapper.void_notice").withStyle(styleFromColor(0xFF5454)));
-                tooltip.add(Component.translatable("create_dd.block_zapper.breaker_notice").withStyle(styleFromColor(0xB57A4C)));
+                tooltip.add(Component.translatable(zapper + ".void_notice").withStyle(styleFromColor(0xFF5454)));
+                tooltip.add(Component.translatable(zapper + ".breaker_notice").withStyle(styleFromColor(0xB57A4C)));
             }
             if (hasControlDown() && !hasShiftDown()) {
                 if ((stack.getTag().contains("BreakerModifier") && nbt.getBoolean("BreakerModifier")) || (stack.getTag().contains("SizeModifier") && nbt.getBoolean("SizeModifier")) || (stack.getTag().contains("RangeModifier") && nbt.getInt("RangeModifier") > 0) || (stack.getTag().contains("SpeedModifier") && nbt.getInt("SpeedModifier") > 0)) {
-                    tooltip.add(Component.translatable("create_dd.block_zapper.modifiers").withStyle(ChatFormatting.GRAY));
+                    tooltip.add(Component.translatable(zapper + ".modifiers").withStyle(ChatFormatting.GRAY));
                 } else {
-                    tooltip.add(Component.translatable("create_dd.block_zapper.no_modifiers").withStyle(ChatFormatting.GRAY));
+                    tooltip.add(Component.translatable(zapper + ".no_modifiers").withStyle(ChatFormatting.GRAY));
                 }
                 if (stack.getTag().contains("BreakerModifier") && nbt.getBoolean("BreakerModifier")) {
-                    tooltip.add(Component.translatable("create_dd.block_zapper.breaker_modifier").withStyle(styleFromColor(0xFFCF54)));
-                    tooltip.add(Component.translatable("create_dd.block_zapper.breaker_modifier.desc").withStyle(styleFromColor(0xB57A4C)));
+                    tooltip.add(Component.translatable(zapper + ".breaker_modifier").withStyle(styleFromColor(0xFFCF54)));
+                    tooltip.add(Component.translatable(zapper + ".breaker_modifier.desc").withStyle(styleFromColor(0xB57A4C)));
                 }
                 if (stack.getTag().contains("SizeModifier") && nbt.getBoolean("SizeModifier")) {
-                    tooltip.add(Component.translatable("create_dd.block_zapper.size_modifier").withStyle(styleFromColor(0xFFCF54)));
-                    tooltip.add(Component.translatable("create_dd.block_zapper.size_modifier.desc").withStyle(styleFromColor(0xB57A4C)));
+                    tooltip.add(Component.translatable(zapper + ".size_modifier").withStyle(styleFromColor(0xFFCF54)));
+                    tooltip.add(Component.translatable(zapper + ".size_modifier.desc").withStyle(styleFromColor(0xB57A4C)));
                 }
                 if (stack.getTag().contains("RangeModifier") && nbt.getInt("RangeModifier") > 0) {
                     int r = getRangeModifier(nbt);
                     int range = r == 1 ? 16 : r == 2 ? 24 : r == 3 ? 32 : 8;
-                    tooltip.add(Component.translatable("create_dd.block_zapper.range_modifier").append(r == 3 ? " III" : r == 2 ? " II" : r == 1 ? " I" : "").withStyle(r == 3 ? styleFromColor(0xFFCF54) : styleFromColor(0xF1DD79)));
-                    tooltip.add(Component.translatable("create_dd.block_zapper.range_modifier.desc").append(String.valueOf(range)).append(Component.translatable("create_dd.block_zapper.range_modifier.desc2")).withStyle(styleFromColor(0xB57A4C)));
+                    tooltip.add(Component.translatable(zapper + ".range_modifier").append(r == 3 ? " III" : r == 2 ? " II" : r == 1 ? " I" : "").withStyle(r == 3 ? styleFromColor(0xFFCF54) : styleFromColor(0xF1DD79)));
+                    tooltip.add(Component.translatable(zapper + ".range_modifier.desc").append(String.valueOf(range)).append(Component.translatable(zapper + ".range_modifier.desc2")).withStyle(styleFromColor(0xB57A4C)));
                 }
                 if (stack.getTag().contains("SpeedModifier") && nbt.getInt("SpeedModifier") > 0) {
                     int c = getSpeedModifier(nbt);
                     double cooldown = c == 1 ? 0.8 : c == 2 ? 0.6 : c == 3 ? 0.4 : 1.2;
-                    tooltip.add(Component.translatable("create_dd.block_zapper.speed_modifier").append(c == 3 ? " III" : c == 2 ? " II" : c == 1 ? " I" : "").withStyle(c == 3 ? styleFromColor(0xFFCF54) : styleFromColor(0xF1DD79)));
-                    tooltip.add(Component.translatable("create_dd.block_zapper.speed_modifier.desc").append(String.valueOf(cooldown)).append(Component.translatable("create_dd.block_zapper.speed_modifier.desc2")).withStyle(styleFromColor(0xB57A4C)));
+                    tooltip.add(Component.translatable(zapper + ".speed_modifier").append(c == 3 ? " III" : c == 2 ? " II" : c == 1 ? " I" : "").withStyle(c == 3 ? styleFromColor(0xFFCF54) : styleFromColor(0xF1DD79)));
+                    tooltip.add(Component.translatable(zapper + ".speed_modifier.desc").append(String.valueOf(cooldown)).append(Component.translatable(zapper + ".speed_modifier.desc2")).withStyle(styleFromColor(0xB57A4C)));
                 }
                 if (!(stack.getTag().contains("SpeedModifier") || stack.getTag().contains("RangeModifier") || stack.getTag().contains("SizeModifier") || stack.getTag().contains("BreakerModifier"))) {
                     tooltip.add(Component.literal(""));
@@ -119,7 +121,7 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
     public static MutableComponent holdCtrl() {
         return Component.translatable("create_dd.tooltip.holdForModifiers").append("[").withStyle(ChatFormatting.DARK_GRAY)
                 .append(Component.translatable("create.tooltip.keyCtrl").withStyle(hasControlDown() ? ChatFormatting.WHITE : ChatFormatting.GRAY))
-                .append("]").append(Component.translatable("create_dd.block_zapper.ctrl")).withStyle(ChatFormatting.DARK_GRAY);
+                .append("]").append(Component.translatable(zapper + ".ctrl")).withStyle(ChatFormatting.DARK_GRAY);
     }
 
     @Override
@@ -190,7 +192,7 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                     player.playSound(SoundEvents.SHULKER_SHOOT, 0.7f, 0.8f);
                 } else {
                     AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(DesiresItems.BURY_BLEND.get(), (nbtTag, playerEntity) -> {
@@ -201,7 +203,7 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                     player.playSound(SoundEvents.AXE_SCRAPE, 0.7f, 0.5f);
                 } else {
                     AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.AMETHYST_SHARD, (nbtTag, playerEntity) -> {
@@ -210,9 +212,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.COPPER_BREAK, 0.7f, 0.5f);
                 } else if (world.isClientSide && getRangeModifier(nbtTag) < 1) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.SPYGLASS, (nbtTag, playerEntity) -> {
@@ -221,9 +223,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.COPPER_BREAK, 0.7f, 0.5f);
                 } else if (world.isClientSide && getRangeModifier(nbtTag) < 2) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.DIAMOND, (nbtTag, playerEntity) -> {
@@ -232,9 +234,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.COPPER_BREAK, 0.7f, 0.5f);
                 } else if (world.isClientSide && getRangeModifier(nbtTag) < 3) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.FEATHER, (nbtTag, playerEntity) -> {
@@ -243,9 +245,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER, 0.7f, 0.6f);
                 } else if (world.isClientSide && getSpeedModifier(nbtTag) < 1) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.GOLD_INGOT, (nbtTag, playerEntity) -> {
@@ -254,9 +256,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER, 0.7f, 0.6f);
                 } else if (world.isClientSide && getSpeedModifier(nbtTag) < 2) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(AllBlocks.EXPERIENCE_BLOCK.get().asItem(), (nbtTag, playerEntity) -> {
@@ -265,9 +267,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.ARMOR_EQUIP_LEATHER, 0.7f, 0.6f);
                 } else if (world.isClientSide && getSpeedModifier(nbtTag) < 3) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.ENDER_PEARL, (nbtTag, playerEntity) -> {
@@ -276,9 +278,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.GLOW_INK_SAC_USE, 0.7f, 0.5f);
                 } else if (world.isClientSide && getHardnessModifier(nbtTag) < 1) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.NETHERITE_INGOT, (nbtTag, playerEntity) -> {
@@ -287,9 +289,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.ARMOR_EQUIP_NETHERITE, 0.7f, 0.8f);
                 } else if (world.isClientSide && getHardnessModifier(nbtTag) < 2) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.put(Items.NETHER_STAR, (nbtTag, playerEntity) -> {
@@ -298,9 +300,9 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
                 if (success && world.isClientSide) { player.playSound(DesiresSoundEvents.BLOCK_ZAPPER_UPGRADE.get(), 0.8f, 0.8f);
                     player.playSound(SoundEvents.BEACON_ACTIVATE, 0.7f, 0.8f);
                 } else if (world.isClientSide && getHardnessModifier(nbtTag) < 3) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.need_upgrade_below").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".need_upgrade_below").withStyle(ChatFormatting.RED), true);
                 } else if (world.isClientSide) { AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                    player.displayClientMessage(Component.translatable("create_dd.block_zapper.too_much").withStyle(ChatFormatting.RED), true);
+                    player.displayClientMessage(Component.translatable(zapper + ".too_much").withStyle(ChatFormatting.RED), true);
                 }
             });
             itemToModifierMap.forEach((items, modifierLogic) -> {
@@ -328,7 +330,7 @@ public class BlockZapperItem extends ZapperItem implements Vanishable {
         if (world.isClientSide) {
             if (getAmountFound(item) < getAmountOfBlocks(item) && !player.isCreative()) {
                 AllSoundEvents.DENY.play(world, player, player.blockPosition());
-                player.displayClientMessage(Component.translatable("create_dd.block_zapper.not_enough_blocks").withStyle(ChatFormatting.RED), true);
+                player.displayClientMessage(Component.translatable(zapper + ".not_enough_blocks").withStyle(ChatFormatting.RED), true);
             }
 
             CreateClient.ZAPPER_RENDER_HANDLER.dontAnimateItem(hand);
