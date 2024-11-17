@@ -75,8 +75,7 @@ public class JetpackItem extends BaseArmorItem {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        assert pLevel != null;
-        if (pLevel.isClientSide()) {
+        if (pLevel != null && pLevel.isClientSide()) {
             CompoundTag nbt = pStack.getOrCreateTag();
 
             String a = getAirVisual(nbt);
